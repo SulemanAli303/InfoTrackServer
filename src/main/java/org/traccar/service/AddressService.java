@@ -21,6 +21,20 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
+    public Address createAddressForCurrentUser(Address address, Long currentUserId) {
+        // Possibly do a check that user exists or that the
+        // current user can only create an address for themselves
+        address.setUserId(currentUserId);
+        address.setCreatedAt(new Date());
+        address.setUpdatedAt(new Date());
+        return addressRepository.save(address);
+    }
+
+    public List<Address> getAddressesByUserId(Long userId) {
+        return addressRepository.findByUserId(userId);
+    }
+
+
     public Address getAddressById(Long id) {
         return addressRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Address not found with ID: " + id));

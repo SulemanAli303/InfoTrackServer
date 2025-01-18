@@ -9,11 +9,15 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 import org.traccar.api.BaseResource;
 import org.traccar.model.Address;
 import org.traccar.service.AddressService;
+import org.traccar.api.security.UserPrincipal;
+
 
 import java.util.List;
 
@@ -26,21 +30,59 @@ public class AddressResource extends BaseResource {
     @Inject
     private AddressService addressService;
 
+    @Context
+    private SecurityContext securityContext;
+
 
     @POST
+    @Path(("/create"))
     public Response createAddress(Address address) {
         Address createdAddress = addressService.createAddress(address);
         return Response.status(Response.Status.CREATED).entity(createdAddress).build();
     }
 
+    @POST
+    @Path("/create-for-logged-user")
+    public Response createAddressForLoggedUser(Address address) {
+        // Extract user ID from the principal:
+        UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
+        long currentUserId = principal.getUserId();
+
+        // Assign userId to the address:
+        address.setUserId(currentUserId);
+
+        // Now create the address
+        Address createdAddress = addressService.createAddress(address);
+        return Response.status(Response.Status.CREATED).entity(createdAddress).build();
+    }
+
     @GET
-    @Path("/{id}")
+    @Path("/my")
+    public Response getAddressesForCurrentUser() {
+        UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
+        long currentUserId = principal.getUserId();
+
+        List<Address> addresses = addressService.getAddressesByUserId(currentUserId);
+        return Response.ok(addresses).build();
+    }
+
+    @GET
+    @Path("/user/{userId}")
+    public Response getAddressesForUser(@PathParam("userId") Long userId) {
+        List<Address> addresses = addressService.getAddressesByUserId(userId);
+        return Response.ok(addresses).build();
+    }
+
+
+    @GET
+    @Path("/get/{id}")
     public Response getAddressById(@PathParam("id") Long id) {
         Address address = addressService.getAddressById(id);
         return Response.ok(address).build();
     }
 
     @GET
+    @Path("/get/all")
     public Response getAllAddresses() {
         List<Address> addresses = addressService.getAllAddresses();
         return Response.ok(addresses).build();

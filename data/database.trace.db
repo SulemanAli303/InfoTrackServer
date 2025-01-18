@@ -105,3 +105,6 @@ select t.disablereports from PUBLIC.tc_servers t where 0=1 [42122-232]
 	at org.traccar.schedule.ScheduleManager.start(ScheduleManager.java:54)
 	at org.traccar.Main.run(Main.java:127)
 	at org.traccar.Main.main(Main.java:111)
+2025-01-16 12:29:19.827628+05:00 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ADDRESSES" not found; SQL statement:
+INSERT INTO addresses (name, latitude, longitude, city, state, country, postal_code, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) [42102-232]

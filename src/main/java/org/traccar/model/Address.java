@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Address {
     private Long id;
+    private Long userId;
     private String name;
     private Double latitude;
     private Double longitude;
@@ -20,6 +21,14 @@ public class Address {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getName() {

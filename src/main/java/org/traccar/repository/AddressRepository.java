@@ -2,6 +2,7 @@ package org.traccar.repository;
 
 import jakarta.inject.Inject;
 import org.traccar.model.Address;
+
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,20 +20,24 @@ public class AddressRepository {
     private DataSource dataSource;
 
     public Address save(Address address) {
-        String sql = "INSERT INTO addresses (name, latitude, longitude, city, state, country,"
+        String sql = "INSERT INTO addresses (user_id, name, latitude, longitude, city, state, country,"
                 + " postal_code, created_at, updated_at) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, address.getName());
-            statement.setDouble(2, address.getLatitude());
-            statement.setDouble(3, address.getLongitude());
-            statement.setString(4, address.getCity());
-            statement.setString(5, address.getState());
-            statement.setString(6, address.getCountry());
-            statement.setString(7, address.getPostalCode());
-            statement.setTimestamp(8, new Timestamp(address.getCreatedAt().getTime()));
-            statement.setTimestamp(9, new Timestamp(address.getUpdatedAt().getTime()));
+
+            statement.setLong(1, address.getUserId()); // <--- new
+            statement.setString(2, address.getName());
+            statement.setDouble(3, address.getLatitude());
+            statement.setDouble(4, address.getLongitude());
+            statement.setString(5, address.getCity());
+            statement.setString(6, address.getState());
+            statement.setString(7, address.getCountry());
+            statement.setString(8, address.getPostalCode());
+            statement.setTimestamp(9, new Timestamp(address.getCreatedAt().getTime()));
+            statement.setTimestamp(10, new Timestamp(address.getUpdatedAt().getTime()));
+
             statement.executeUpdate();
 
             try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -45,6 +50,7 @@ public class AddressRepository {
         }
         return address;
     }
+
 
     public Optional<Address> findById(Long id) {
         String sql = "SELECT * FROM addresses WHERE id = ?";
@@ -112,6 +118,7 @@ public class AddressRepository {
     private Address mapRowToAddress(ResultSet resultSet) throws SQLException {
         Address address = new Address();
         address.setId(resultSet.getLong("id"));
+        address.setUserId(resultSet.getLong("user_id")); // <--- new
         address.setName(resultSet.getString("name"));
         address.setLatitude(resultSet.getDouble("latitude"));
         address.setLongitude(resultSet.getDouble("longitude"));
@@ -123,6 +130,24 @@ public class AddressRepository {
         address.setUpdatedAt(resultSet.getTimestamp("updated_at"));
         return address;
     }
+
+    public List<Address> findByUserId(Long userId) {
+        List<Address> addresses = new ArrayList<>();
+        String sql = "SELECT * FROM addresses WHERE user_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    addresses.add(mapRowToAddress(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to retrieve addresses by user", e);
+        }
+        return addresses;
+    }
+
 }
 
 
