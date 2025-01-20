@@ -1,120 +1,73 @@
-2025-01-17 00:03:41  WARN: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m51s222ms456µs600ns).
-2025-01-17 00:07:40  WARN: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m57s933ms903µs900ns).
-2025-01-17 00:26:35  WARN: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m55s559ms836µs200ns).
-2025-01-17 11:32:40  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
-2025-01-17 11:32:40  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
-2025-01-17 11:32:40  INFO: Memory limit heap: 8124mb non-heap: 0mb
-2025-01-17 11:32:40  INFO: Character encoding: UTF-8
-2025-01-17 11:32:40  INFO: Version: 6.6
-2025-01-17 11:32:40  INFO: Starting server...
-2025-01-17 11:32:40  INFO: HikariPool-1 - Starting...
-2025-01-17 11:32:40  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@726a17c4
-2025-01-17 11:32:40  INFO: HikariPool-1 - Start completed.
-2025-01-17 11:32:40  INFO: Clearing database change log checksums
-2025-01-17 11:32:41  INFO: Successfully acquired change log lock
-2025-01-17 11:32:41  INFO: Successfully released change log lock
-2025-01-17 11:32:42  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-17 11:32:42  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-17 11:32:42  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-17 11:32:42  INFO: UPDATE SUMMARY
-2025-01-17 11:32:42  INFO: Run:                          0
-2025-01-17 11:32:42  INFO: Previously run:              51
-2025-01-17 11:32:42  INFO: Filtered out:                 0
-2025-01-17 11:32:42  INFO: -------------------------------
-2025-01-17 11:32:42  INFO: Total change sets:           51
+2025-01-21 00:08:20  WARN: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m44s390ms405µs300ns).
+2025-01-21 00:26:13  INFO: Stopping server...
+2025-01-21 00:30:28  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
+2025-01-21 00:30:28  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
+2025-01-21 00:30:28  INFO: Memory limit heap: 8124mb non-heap: 0mb
+2025-01-21 00:30:28  INFO: Character encoding: UTF-8
+2025-01-21 00:30:28  INFO: Version: 6.6
+2025-01-21 00:30:28  INFO: Starting server...
+2025-01-21 00:30:28  INFO: HikariPool-1 - Starting...
+2025-01-21 00:30:28  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f14a673
+2025-01-21 00:30:28  INFO: HikariPool-1 - Start completed.
+2025-01-21 00:30:28  INFO: Clearing database change log checksums
+2025-01-21 00:30:29  INFO: Successfully acquired change log lock
+2025-01-21 00:30:29  INFO: Successfully released change log lock
+2025-01-21 00:30:30  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 00:30:30  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 00:30:30  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 00:30:30  INFO: UPDATE SUMMARY
+2025-01-21 00:30:30  INFO: Run:                          0
+2025-01-21 00:30:30  INFO: Previously run:              51
+2025-01-21 00:30:30  INFO: Filtered out:                 0
+2025-01-21 00:30:30  INFO: -------------------------------
+2025-01-21 00:30:30  INFO: Total change sets:           51
 
-2025-01-17 11:32:42  INFO: Update summary generated
-2025-01-17 11:32:42  INFO: Successfully released change log lock
-2025-01-17 11:32:42  INFO: Command execution complete
-2025-01-17 11:32:43  WARN: Port disabled due to conflict - Address already in use: bind - BindException (...)
-2025-01-17 11:32:43  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 21.0.4+8-LTS-274
-2025-01-17 11:32:43  INFO: Started o.t.w.@4ed4c5ed{/,null,AVAILABLE}
-2025-01-17 11:32:43  INFO: Session workerName=node0
-2025-01-17 11:32:44  INFO: Started o.e.j.s.ServletContextHandler@22f35d3b{/,null,AVAILABLE}
-2025-01-17 11:32:44  INFO: Started ServerConnector@5b29f3a5{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
-2025-01-17 11:32:44  INFO: Started Server@467a7b03{STARTING}[11.0.24,sto=0] @4759ms
-2025-01-17 11:34:32  INFO: user: 1, action: login, from: [0:0:0:0:0:0:0:1]
-2025-01-17 11:50:53  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
-2025-01-17 11:50:53  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
-2025-01-17 11:50:53  INFO: Memory limit heap: 8124mb non-heap: 0mb
-2025-01-17 11:50:53  INFO: Character encoding: UTF-8
-2025-01-17 11:50:53  INFO: Version: 6.6
-2025-01-17 11:50:53  INFO: Starting server...
-2025-01-17 11:50:54  INFO: HikariPool-1 - Starting...
-2025-01-17 11:50:54  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f14a673
-2025-01-17 11:50:54  INFO: HikariPool-1 - Start completed.
-2025-01-17 11:50:54  INFO: Clearing database change log checksums
-2025-01-17 11:50:54  INFO: Successfully acquired change log lock
-2025-01-17 11:50:54  INFO: Successfully released change log lock
-2025-01-17 11:50:56  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-17 11:50:57  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-17 11:50:57  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-17 11:50:57  INFO: UPDATE SUMMARY
-2025-01-17 11:50:57  INFO: Run:                          0
-2025-01-17 11:50:57  INFO: Previously run:              51
-2025-01-17 11:50:57  INFO: Filtered out:                 0
-2025-01-17 11:50:57  INFO: -------------------------------
-2025-01-17 11:50:57  INFO: Total change sets:           51
+2025-01-21 00:30:30  INFO: Update summary generated
+2025-01-21 00:30:30  INFO: Successfully released change log lock
+2025-01-21 00:30:30  INFO: Command execution complete
+2025-01-21 00:30:31  WARN: Port disabled due to conflict - Address already in use: bind - BindException (...)
+2025-01-21 00:30:31  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 21.0.4+8-LTS-274
+2025-01-21 00:30:31  INFO: Started o.t.w.@7fcdbab8{/,null,AVAILABLE}
+2025-01-21 00:30:31  INFO: Session workerName=node0
+2025-01-21 00:30:32  INFO: Started o.e.j.s.ServletContextHandler@610613a{/,null,AVAILABLE}
+2025-01-21 00:30:32  INFO: Started ServerConnector@3fd22c3f{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2025-01-21 00:30:32  INFO: Started Server@3d1b6f06{STARTING}[11.0.24,sto=0] @4739ms
+2025-01-21 00:30:40  INFO: 01 Registration enabled: false
+2025-01-21 00:30:40  INFO: 04 Registration enabled: false
+2025-01-21 00:43:06  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
+2025-01-21 00:43:06  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
+2025-01-21 00:43:06  INFO: Memory limit heap: 8124mb non-heap: 0mb
+2025-01-21 00:43:06  INFO: Character encoding: UTF-8
+2025-01-21 00:43:06  INFO: Version: 6.6
+2025-01-21 00:43:06  INFO: Starting server...
+2025-01-21 00:43:06  INFO: HikariPool-1 - Starting...
+2025-01-21 00:43:06  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f14a673
+2025-01-21 00:43:06  INFO: HikariPool-1 - Start completed.
+2025-01-21 00:43:06  INFO: Clearing database change log checksums
+2025-01-21 00:43:07  INFO: Successfully acquired change log lock
+2025-01-21 00:43:07  INFO: Successfully released change log lock
+2025-01-21 00:43:08  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 00:43:08  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 00:43:08  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 00:43:08  INFO: UPDATE SUMMARY
+2025-01-21 00:43:08  INFO: Run:                          0
+2025-01-21 00:43:08  INFO: Previously run:              51
+2025-01-21 00:43:08  INFO: Filtered out:                 0
+2025-01-21 00:43:08  INFO: -------------------------------
+2025-01-21 00:43:08  INFO: Total change sets:           51
 
-2025-01-17 11:50:57  INFO: Update summary generated
-2025-01-17 11:50:57  INFO: Successfully released change log lock
-2025-01-17 11:50:57  INFO: Command execution complete
-2025-01-17 11:50:57  WARN: Port disabled due to conflict - Address already in use: bind - BindException (...)
-2025-01-17 11:50:58  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 21.0.4+8-LTS-274
-2025-01-17 11:50:58  INFO: Started o.t.w.@4ed4c5ed{/,null,AVAILABLE}
-2025-01-17 11:50:58  INFO: Session workerName=node0
-2025-01-17 11:50:58  INFO: Started o.e.j.s.ServletContextHandler@22f35d3b{/,null,AVAILABLE}
-2025-01-17 11:50:58  INFO: Started ServerConnector@5b29f3a5{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
-2025-01-17 11:50:58  INFO: Started Server@467a7b03{STARTING}[11.0.24,sto=0] @5595ms
-2025-01-17 11:54:00  INFO: user: 1, action: login, from: 192.168.100.36
-2025-01-17 12:22:01  WARN: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m6s143ms914µs800ns).
-2025-01-17 14:30:10  WARN: HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h42m38s547ms948µs100ns).
-2025-01-18 16:39:52  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
-2025-01-18 16:39:52  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
-2025-01-18 16:39:52  INFO: Memory limit heap: 8124mb non-heap: 0mb
-2025-01-18 16:39:52  INFO: Character encoding: UTF-8
-2025-01-18 16:39:52  INFO: Version: 6.6
-2025-01-18 16:39:52  INFO: Starting server...
-2025-01-18 16:39:52  INFO: HikariPool-1 - Starting...
-2025-01-18 16:39:54 ERROR: Main method error - Access denied for user 'root'@'localhost' (using password: YES) - SQLException (... < DatabaseModule:80 < <gener:-1 < *:-1 < ... < MainModule:142 < <gener:-1 < ...)
-2025-01-18 16:40:07  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
-2025-01-18 16:40:07  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
-2025-01-18 16:40:07  INFO: Memory limit heap: 8124mb non-heap: 0mb
-2025-01-18 16:40:07  INFO: Character encoding: UTF-8
-2025-01-18 16:40:07  INFO: Version: 6.6
-2025-01-18 16:40:07  INFO: Starting server...
-2025-01-18 16:40:08  INFO: HikariPool-1 - Starting...
-2025-01-18 16:40:10 ERROR: Main method error - Access denied for user 'root'@'localhost' (using password: YES) - SQLException (... < DatabaseModule:80 < <gener:-1 < *:-1 < ... < MainModule:142 < <gener:-1 < ...)
-2025-01-18 16:56:13  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
-2025-01-18 16:56:13  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
-2025-01-18 16:56:13  INFO: Memory limit heap: 8124mb non-heap: 0mb
-2025-01-18 16:56:13  INFO: Character encoding: UTF-8
-2025-01-18 16:56:13  INFO: Version: 6.6
-2025-01-18 16:56:13  INFO: Starting server...
-2025-01-18 16:56:13  INFO: HikariPool-1 - Starting...
-2025-01-18 16:56:14  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f14a673
-2025-01-18 16:56:14  INFO: HikariPool-1 - Start completed.
-2025-01-18 16:56:14  INFO: Clearing database change log checksums
-2025-01-18 16:56:14  INFO: Successfully acquired change log lock
-2025-01-18 16:56:14  INFO: Successfully released change log lock
-2025-01-18 16:56:15  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-18 16:56:16  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-18 16:56:16  INFO: Reading from traccar.DATABASECHANGELOG
-2025-01-18 16:56:16  INFO: UPDATE SUMMARY
-2025-01-18 16:56:16  INFO: Run:                          0
-2025-01-18 16:56:16  INFO: Previously run:              51
-2025-01-18 16:56:16  INFO: Filtered out:                 0
-2025-01-18 16:56:16  INFO: -------------------------------
-2025-01-18 16:56:16  INFO: Total change sets:           51
-
-2025-01-18 16:56:16  INFO: Update summary generated
-2025-01-18 16:56:16  INFO: Successfully released change log lock
-2025-01-18 16:56:16  INFO: Command execution complete
-2025-01-18 16:56:16  WARN: Port disabled due to conflict - Address already in use: bind - BindException (...)
-2025-01-18 16:56:17  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 21.0.4+8-LTS-274
-2025-01-18 16:56:17  INFO: Started o.t.w.@5dfa5c53{/,null,AVAILABLE}
-2025-01-18 16:56:17  INFO: Session workerName=node0
-2025-01-18 16:56:17  INFO: Started o.e.j.s.ServletContextHandler@24cb9078{/,null,AVAILABLE}
-2025-01-18 16:56:17  INFO: Started ServerConnector@4c1cf079{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
-2025-01-18 16:56:17  INFO: Started Server@1f65440d{STARTING}[11.0.24,sto=0] @4525ms
-2025-01-18 16:56:49  INFO: Stopping server...
+2025-01-21 00:43:08  INFO: Update summary generated
+2025-01-21 00:43:08  INFO: Successfully released change log lock
+2025-01-21 00:43:08  INFO: Command execution complete
+2025-01-21 00:43:09  WARN: Port disabled due to conflict - Address already in use: bind - BindException (...)
+2025-01-21 00:43:09  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 21.0.4+8-LTS-274
+2025-01-21 00:43:09  INFO: Started o.t.w.@7fcdbab8{/,null,AVAILABLE}
+2025-01-21 00:43:09  INFO: Session workerName=node0
+2025-01-21 00:43:10  INFO: Started o.e.j.s.ServletContextHandler@610613a{/,null,AVAILABLE}
+2025-01-21 00:43:10  INFO: Started ServerConnector@3fd22c3f{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2025-01-21 00:43:10  INFO: Started Server@3d1b6f06{STARTING}[11.0.24,sto=0] @4781ms
+2025-01-21 00:44:09  INFO: 01 Registration enabled: false
+2025-01-21 00:44:09  INFO: 03 Registration enabled: false
+2025-01-21 00:44:09  INFO: 06 Registration enabled: false
+2025-01-21 00:44:09  INFO: user: 0, action: create, object: user, id: 2
+2025-01-21 00:44:38  INFO: Stopping server...
