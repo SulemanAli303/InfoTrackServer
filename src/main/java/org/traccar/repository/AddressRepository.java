@@ -150,12 +150,14 @@ public class AddressRepository {
         return address;
     }
 
-    public List<Address> findByUserId(Long userId) {
+    public List<Address> findByUserId(Long userId, int offset, int limit) {
         List<Address> addresses = new ArrayList<>();
-        String sql = "SELECT * FROM addresses WHERE user_id = ?";
+        String sql = "SELECT * FROM addresses WHERE user_id = ? LIMIT ? OFFSET ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, userId);
+            statement.setInt(2, limit);
+            statement.setInt(3, offset);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     addresses.add(mapRowToAddress(resultSet));
@@ -167,6 +169,21 @@ public class AddressRepository {
         return addresses;
     }
 
+    public long countByUserId(Long userId) {
+        String sql = "SELECT COUNT(*) FROM addresses WHERE user_id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, userId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getLong(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to count addresses for user", e);
+        }
+        return 0;
+    }
 }
 
 

@@ -21,9 +21,7 @@ import org.traccar.model.Address;
 import org.traccar.service.AddressService;
 import org.traccar.api.security.UserPrincipal;
 
-
 import java.util.List;
-
 
 @Path("/addresses")
 @Produces(MediaType.APPLICATION_JSON)
@@ -47,33 +45,45 @@ public class AddressResource extends BaseResource {
     @POST
     @Path("/create-for-logged-user")
     public Response createAddressForLoggedUser(Address address) {
-        // Extract user ID from the principal:
         UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
         long currentUserId = principal.getUserId();
 
-        // Assign userId to the address:
         address.setUserId(currentUserId);
-
-        // Now create the address
         Address createdAddress = addressService.createAddress(address);
         return Response.status(Response.Status.CREATED).entity(createdAddress).build();
     }
 
     @GET
     @Path("/my")
-    public Response getAddressesForCurrentUser() {
+    public Response getAddressesForCurrentUser(
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size) {
         UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
         long currentUserId = principal.getUserId();
+        int offset = page * size;
 
-        List<Address> addresses = addressService.getAddressesByUserId(currentUserId);
-        return Response.ok(addresses).build();
+        List<Address> addresses = addressService.getAddressesByUserId(currentUserId, offset, size);
+
+        long totalCount = addressService.getTotalAddressCountForUser(currentUserId);
+
+        PaginatedResponse paginatedResponse = new PaginatedResponse(addresses, totalCount, page, size);
+        return Response.ok(paginatedResponse).build();
     }
 
     @GET
     @Path("/user/{userId}")
-    public Response getAddressesForUser(@PathParam("userId") Long userId) {
-        List<Address> addresses = addressService.getAddressesByUserId(userId);
-        return Response.ok(addresses).build();
+    public Response getAddressesForUser(
+            @PathParam("userId") Long userId,
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size) {
+        int offset = page * size;
+
+        List<Address> addresses = addressService.getAddressesByUserId(userId, offset, size);
+
+        long totalCount = addressService.getTotalAddressCountForUser(userId);
+
+        PaginatedResponse paginatedResponse = new PaginatedResponse(addresses, totalCount, page, size);
+        return Response.ok(paginatedResponse).build();
     }
 
 

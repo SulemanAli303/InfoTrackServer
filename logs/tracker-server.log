@@ -71,3 +71,41 @@
 2025-01-21 00:44:09  INFO: 06 Registration enabled: false
 2025-01-21 00:44:09  INFO: user: 0, action: create, object: user, id: 2
 2025-01-21 00:44:38  INFO: Stopping server...
+2025-01-21 12:22:02  INFO: Operating system name: Windows 11 version: 10.0 architecture: amd64
+2025-01-21 12:22:02  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 21.0.4+8-LTS-274
+2025-01-21 12:22:02  INFO: Memory limit heap: 8124mb non-heap: 0mb
+2025-01-21 12:22:02  INFO: Character encoding: UTF-8
+2025-01-21 12:22:02  INFO: Version: 6.6
+2025-01-21 12:22:02  INFO: Starting server...
+2025-01-21 12:22:02  INFO: HikariPool-1 - Starting...
+2025-01-21 12:22:02  INFO: HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5f14a673
+2025-01-21 12:22:02  INFO: HikariPool-1 - Start completed.
+2025-01-21 12:22:02  INFO: Clearing database change log checksums
+2025-01-21 12:22:02  INFO: Successfully acquired change log lock
+2025-01-21 12:22:02  INFO: Successfully released change log lock
+2025-01-21 12:22:04  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 12:22:04  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 12:22:04  INFO: Reading from traccar.DATABASECHANGELOG
+2025-01-21 12:22:04  INFO: UPDATE SUMMARY
+2025-01-21 12:22:04  INFO: Run:                          0
+2025-01-21 12:22:04  INFO: Previously run:              51
+2025-01-21 12:22:04  INFO: Filtered out:                 0
+2025-01-21 12:22:04  INFO: -------------------------------
+2025-01-21 12:22:04  INFO: Total change sets:           51
+
+2025-01-21 12:22:04  INFO: Update summary generated
+2025-01-21 12:22:04  INFO: Successfully released change log lock
+2025-01-21 12:22:04  INFO: Command execution complete
+2025-01-21 12:22:05  WARN: Port disabled due to conflict - Address already in use: bind - BindException (...)
+2025-01-21 12:22:05  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 21.0.4+8-LTS-274
+2025-01-21 12:22:05  INFO: Started o.t.w.@641ae43b{/,null,AVAILABLE}
+2025-01-21 12:22:05  INFO: Session workerName=node0
+2025-01-21 12:22:06  INFO: Started o.e.j.s.ServletContextHandler@a669e24{/,null,AVAILABLE}
+2025-01-21 12:22:06  INFO: Started ServerConnector@46305d89{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2025-01-21 12:22:06  INFO: Started Server@50df5f6{STARTING}[11.0.24,sto=0] @4975ms
+2025-01-21 12:23:45  INFO: user: 2, action: login, from: [0:0:0:0:0:0:0:1]
+2025-01-21 12:23:52  INFO: user: 2, action: remove, object: user, id: 1
+2025-01-21 12:24:19  INFO: user: 2, action: login, from: [0:0:0:0:0:0:0:1]
+2025-01-21 12:24:27  INFO: user: 2, action: remove, object: user, id: 2
+2025-01-21 12:24:32  INFO: login failed from: [0:0:0:0:0:0:0:1]
+2025-01-21 12:24:45  INFO: login failed from: [0:0:0:0:0:0:0:1]
