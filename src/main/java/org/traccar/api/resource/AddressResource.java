@@ -9,11 +9,14 @@ import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import org.traccar.api.BaseResource;
+import org.traccar.api.PaginatedResponse;
 import org.traccar.model.Address;
 import org.traccar.service.AddressService;
 import org.traccar.api.security.UserPrincipal;
@@ -83,9 +86,18 @@ public class AddressResource extends BaseResource {
 
     @GET
     @Path("/get/all")
-    public Response getAllAddresses() {
-        List<Address> addresses = addressService.getAllAddresses();
-        return Response.ok(addresses).build();
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllAddresses(
+            @QueryParam("page") @DefaultValue("0") int page,
+            @QueryParam("size") @DefaultValue("10") int size
+    ) {
+        List<Address> addresses = addressService.getAllAddresses(page, size);
+
+        long totalCount = addressService.getTotalAddressCount();
+
+        PaginatedResponse paginatedResponse = new PaginatedResponse(addresses, totalCount, page, size);
+
+        return Response.ok(paginatedResponse).build();
     }
 
     @PUT

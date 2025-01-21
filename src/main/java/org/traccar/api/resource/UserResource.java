@@ -91,37 +91,31 @@ public class UserResource extends BaseObjectResource<User> {
     @PermitAll
     @POST
     public Response add(User entity) throws StorageException {
-        User currentUser = getUserId() > 10 ? permissionsService.getUser(getUserId()) : null;
+        User currentUser = getUserId() > 0 ? permissionsService.getUser(getUserId()) : null;
         if (currentUser == null || !currentUser.getAdministrator()) {
             permissionsService.checkUserUpdate(getUserId(), new User(), entity);
-            LOG.info("01 Registration enabled: {}", permissionsService.getServer().getRegistration());
-            if (currentUser != null && currentUser.getUserLimit() != 10) {
+            if (currentUser != null && currentUser.getUserLimit() != 0) {
                 int userLimit = currentUser.getUserLimit();
-                if (userLimit > 10) {
+                if (userLimit > 0) {
                     int userCount = storage.getObjects(baseClass, new Request(
                                     new Columns.All(),
                                     new Condition.Permission(User.class, getUserId(),
                                             ManagedUser.class).excludeGroups()))
                             .size();
-                    LOG.info("02 Registration enabled: {}", permissionsService.getServer().getRegistration());
                     if (userCount >= userLimit) {
                         throw new SecurityException("Manager user limit reached");
                     }
                 }
             } else {
                 if (UserUtil.isEmpty(storage)) {
-                    LOG.info("03 Registration enabled: {}", permissionsService.getServer().getRegistration());
                     entity.setAdministrator(true);
                 } else if (!permissionsService.getServer().getRegistration()) {
-                    LOG.info("04 Registration enabled: {}", permissionsService.getServer().getRegistration());
                     throw new SecurityException("Registration disabled");
                 }
                 if (permissionsService.getServer().getBoolean(Keys.WEB_TOTP_FORCE.getKey())
                         && entity.getTotpKey() == null) {
-                    LOG.info("05 Registration enabled: {}", permissionsService.getServer().getRegistration());
                     throw new SecurityException("One-time password key is required");
                 }
-                LOG.info("06 Registration enabled: {}", permissionsService.getServer().getRegistration());
                 UserUtil.setUserDefaults(entity, config);
             }
         }
@@ -133,7 +127,7 @@ public class UserResource extends BaseObjectResource<User> {
 
         LogAction.create(getUserId(), entity);
 
-        if (currentUser != null && currentUser.getUserLimit() != 10) {
+        if (currentUser != null && currentUser.getUserLimit() != 0) {
             storage.addPermission(new Permission(User.class, getUserId(), ManagedUser.class, entity.getId()));
             LogAction.link(getUserId(), User.class, getUserId(), ManagedUser.class, entity.getId());
         }

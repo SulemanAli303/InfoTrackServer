@@ -72,9 +72,15 @@ public class AddressService {
         addressRepository.delete(existingAddress);
     }
 
-    public List<Address> getAllAddresses() {
-        return addressRepository.findAll();
+    public List<Address> getAllAddresses(int page, int size) {
+        int offset = page * size;
+        return addressRepository.findAll(offset, size);
     }
+
+    public long getTotalAddressCount() {
+        return addressRepository.count();
+    }
+
 
     private void validateAddress(Address address) {
         if (address.getName() == null || address.getName().isEmpty()) {

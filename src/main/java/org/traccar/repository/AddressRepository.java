@@ -68,19 +68,38 @@ public class AddressRepository {
         return Optional.empty();
     }
 
-    public List<Address> findAll() {
+    public List<Address> findAll(int offset, int limit) {
         List<Address> addresses = new ArrayList<>();
-        String sql = "SELECT * FROM addresses";
+        String sql = "SELECT * FROM addresses LIMIT ? OFFSET ?";
+
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                addresses.add(mapRowToAddress(resultSet));
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, limit);
+            statement.setInt(2, offset);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    addresses.add(mapRowToAddress(resultSet));
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Failed to retrieve addresses", e);
         }
         return addresses;
+    }
+
+    public long count() {
+        String sql = "SELECT COUNT(*) FROM addresses";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to count addresses", e);
+        }
+        return 0;
     }
 
     public Address update(Address address) {
