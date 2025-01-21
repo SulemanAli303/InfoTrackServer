@@ -18,7 +18,7 @@
     <!--    <entry key='database.password'>${DB_PASSWORD}</entry>-->
 
 
-    <entry key='logger.file'>./logs/traccar.log</entry>
-    <entry key='logger.level'>info</entry>
+<!--    <entry key='logger.file'>./logs/traccar.log</entry>-->
+<!--    <entry key='logger.level'>info</entry>-->
 
 </properties>

@@ -20,6 +20,7 @@ import org.traccar.api.PaginatedResponse;
 import org.traccar.model.Address;
 import org.traccar.service.AddressService;
 import org.traccar.api.security.UserPrincipal;
+import org.traccar.storage.StorageException;
 
 import java.util.List;
 
@@ -45,8 +46,7 @@ public class AddressResource extends BaseResource {
     @POST
     @Path("/create-for-logged-user")
     public Response createAddressForLoggedUser(Address address) {
-        UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
-        long currentUserId = principal.getUserId();
+        long currentUserId = getCurrentUserId();
 
         address.setUserId(currentUserId);
         Address createdAddress = addressService.createAddress(address);
@@ -57,7 +57,7 @@ public class AddressResource extends BaseResource {
     @Path("/my")
     public Response getAddressesForCurrentUser(
             @QueryParam("page") @DefaultValue("0") int page,
-            @QueryParam("size") @DefaultValue("10") int size) {
+            @QueryParam("size") @DefaultValue("100") int size) {
         UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
         long currentUserId = principal.getUserId();
         int offset = page * size;
@@ -75,7 +75,7 @@ public class AddressResource extends BaseResource {
     public Response getAddressesForUser(
             @PathParam("userId") Long userId,
             @QueryParam("page") @DefaultValue("0") int page,
-            @QueryParam("size") @DefaultValue("10") int size) {
+            @QueryParam("size") @DefaultValue("100") int size) {
         int offset = page * size;
 
         List<Address> addresses = addressService.getAddressesByUserId(userId, offset, size);
@@ -99,7 +99,7 @@ public class AddressResource extends BaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAddresses(
             @QueryParam("page") @DefaultValue("0") int page,
-            @QueryParam("size") @DefaultValue("10") int size
+            @QueryParam("size") @DefaultValue("100") int size
     ) {
         List<Address> addresses = addressService.getAllAddresses(page, size);
 
@@ -112,14 +112,31 @@ public class AddressResource extends BaseResource {
 
     @PUT
     @Path("/{id}")
-    public Response updateAddress(@PathParam("id") Long id, Address updatedAddress) {
+    public Response updateAddress(@PathParam("id") Long id, Address updatedAddress) throws StorageException {
+        long currentUserId = getCurrentUserId();
+
+        if (!addressService.canUpdateAddress(currentUserId, id)) {
+            throw new SecurityException("You do not have permission to update this address.");
+        }
+
         Address address = addressService.updateAddress(id, updatedAddress);
         return Response.ok(address).build();
     }
 
+    private long getCurrentUserId() {
+        UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
+        return principal.getUserId();
+    }
+
+
     @DELETE
     @Path("/{id}")
-    public Response deleteAddress(@PathParam("id") Long id) {
+    public Response deleteAddress(@PathParam("id") Long id) throws StorageException {
+        long currentUserId = getCurrentUserId();
+
+        if (!addressService.canDeleteAddress(currentUserId, id)) {
+            throw new SecurityException("You do not have permission to delete this address.");
+        }
         addressService.deleteAddress(id);
         return Response.noContent().build();
     }

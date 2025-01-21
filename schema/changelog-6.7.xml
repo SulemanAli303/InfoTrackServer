@@ -38,7 +38,7 @@
                 constraintName="fk_address_user"
                 referencedTableName="tc_users"
                 referencedColumnNames="id"
-                onDelete="CASCADE"/>
+                onDelete="NO ACTION"/>
 
         <!-- Custom SQL to add ON UPDATE CURRENT_TIMESTAMP -->
         <sql>

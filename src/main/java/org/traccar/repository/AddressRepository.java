@@ -102,9 +102,9 @@ public class AddressRepository {
         return 0;
     }
 
-    public Address update(Address address) {
-        String sql = "UPDATE addresses SET name = ?, latitude = ?, longitude = ?, city = ?, state = ?, country = ?, "
-                + "postal_code = ?, updated_at = ? WHERE id = ?";
+    public void update(Address address) {
+        String sql = "UPDATE addresses SET name = ?, latitude = ?, longitude = ?, city = ?, state = ?, country = ?,"
+                + " postal_code = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, address.getName());
@@ -114,13 +114,11 @@ public class AddressRepository {
             statement.setString(5, address.getState());
             statement.setString(6, address.getCountry());
             statement.setString(7, address.getPostalCode());
-            statement.setTimestamp(8, new Timestamp(address.getUpdatedAt().getTime()));
-            statement.setLong(9, address.getId());
+            statement.setLong(8, address.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Failed to update address", e);
         }
-        return address;
     }
 
     public void delete(Address address) {
@@ -184,6 +182,33 @@ public class AddressRepository {
         }
         return 0;
     }
+
+    public Address getAddressById(long addressId) {
+        String sql = "SELECT * FROM addresses WHERE id = ?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, addressId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    Address address = new Address();
+                    address.setId(resultSet.getLong("id"));
+                    address.setUserId(resultSet.getLong("user_id"));
+                    address.setName(resultSet.getString("name"));
+                    address.setLatitude(resultSet.getDouble("latitude"));
+                    address.setLongitude(resultSet.getDouble("longitude"));
+                    address.setCity(resultSet.getString("city"));
+                    address.setState(resultSet.getString("state"));
+                    address.setCountry(resultSet.getString("country"));
+                    address.setPostalCode(resultSet.getString("postal_code"));
+                    return address;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to fetch address", e);
+        }
+        return null;
+    }
+
 }
 
 

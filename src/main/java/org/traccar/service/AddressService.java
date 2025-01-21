@@ -1,8 +1,10 @@
 package org.traccar.service;
 
 import jakarta.inject.Inject;
+import org.traccar.api.security.PermissionsService;
 import org.traccar.model.Address;
 import org.traccar.repository.AddressRepository;
+import org.traccar.storage.StorageException;
 
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,9 @@ public class AddressService {
 
     @Inject
     private AddressRepository addressRepository;
+
+    @Inject
+    private PermissionsService permissionsService;
 
     public Address createAddress(Address address) {
         validateAddress(address);
@@ -26,32 +31,25 @@ public class AddressService {
                 .orElseThrow(() -> new NoSuchElementException("Address not found with ID: " + id));
     }
 
-    public Address updateAddress(Long id, Address updatedAddress) {
-        Address existingAddress = getAddressById(id);
-        if (updatedAddress.getName() != null) {
-            existingAddress.setName(updatedAddress.getName());
+    public Address updateAddress(long addressId, Address updatedAddress) {
+        Address existingAddress = getAddressById(addressId);
+
+        if (existingAddress == null) {
+            throw new IllegalArgumentException("Address not found for ID: " + addressId);
         }
-        if (updatedAddress.getLatitude() != null) {
-            existingAddress.setLatitude(updatedAddress.getLatitude());
-        }
-        if (updatedAddress.getLongitude() != null) {
-            existingAddress.setLongitude(updatedAddress.getLongitude());
-        }
-        if (updatedAddress.getCity() != null) {
-            existingAddress.setCity(updatedAddress.getCity());
-        }
-        if (updatedAddress.getState() != null) {
-            existingAddress.setState(updatedAddress.getState());
-        }
-        if (updatedAddress.getCountry() != null) {
-            existingAddress.setCountry(updatedAddress.getCountry());
-        }
-        if (updatedAddress.getPostalCode() != null) {
-            existingAddress.setPostalCode(updatedAddress.getPostalCode());
-        }
-        existingAddress.setUpdatedAt(new Date());
-        return addressRepository.save(existingAddress);
+
+        existingAddress.setName(updatedAddress.getName());
+        existingAddress.setLatitude(updatedAddress.getLatitude());
+        existingAddress.setLongitude(updatedAddress.getLongitude());
+        existingAddress.setCity(updatedAddress.getCity());
+        existingAddress.setState(updatedAddress.getState());
+        existingAddress.setCountry(updatedAddress.getCountry());
+        existingAddress.setPostalCode(updatedAddress.getPostalCode());
+
+        addressRepository.update(existingAddress);
+        return existingAddress;
     }
+
 
     public void deleteAddress(Long id) {
         Address existingAddress = getAddressById(id);
@@ -83,6 +81,27 @@ public class AddressService {
 
     public long getTotalAddressCountForUser(Long userId) {
         return addressRepository.countByUserId(userId);
+    }
+
+    public boolean canDeleteAddress(long userId, long addressId) throws StorageException {
+        Address address = addressRepository.getAddressById(addressId);
+
+        if (address == null) {
+            throw new IllegalArgumentException("Address not found for ID: " + addressId);
+        }
+        return permissionsService.getUser(userId).getAdministrator() || address.getUserId() == userId;
+    }
+
+    public boolean canUpdateAddress(long userId, long addressId) throws StorageException {
+        // Fetch the address to get the associated user ID
+        Address address = addressRepository.getAddressById(addressId);
+
+        if (address == null) {
+            throw new IllegalArgumentException("Address not found for ID: " + addressId);
+        }
+
+        // Check if the user is an admin or the owner of the address
+        return permissionsService.getUser(userId).getAdministrator() || address.getUserId() == userId;
     }
 
 }
