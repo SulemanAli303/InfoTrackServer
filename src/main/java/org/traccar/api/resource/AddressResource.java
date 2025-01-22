@@ -17,10 +17,13 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import org.traccar.api.BaseResource;
 import org.traccar.api.PaginatedResponse;
+import org.traccar.dto.AddressDistanceDTO;
 import org.traccar.model.Address;
 import org.traccar.service.AddressService;
 import org.traccar.api.security.UserPrincipal;
 import org.traccar.storage.StorageException;
+
+import java.util.logging.Logger;
 
 import java.util.List;
 
@@ -111,7 +114,7 @@ public class AddressResource extends BaseResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/update/{id}")
     public Response updateAddress(@PathParam("id") Long id, Address updatedAddress) throws StorageException {
         long currentUserId = getCurrentUserId();
 
@@ -123,14 +126,8 @@ public class AddressResource extends BaseResource {
         return Response.ok(address).build();
     }
 
-    private long getCurrentUserId() {
-        UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
-        return principal.getUserId();
-    }
-
-
     @DELETE
-    @Path("/{id}")
+    @Path("/delete/{id}")
     public Response deleteAddress(@PathParam("id") Long id) throws StorageException {
         long currentUserId = getCurrentUserId();
 
@@ -139,6 +136,32 @@ public class AddressResource extends BaseResource {
         }
         addressService.deleteAddress(id);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/my/in-range")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAddressesInRangeForCurrentUser(
+            @QueryParam("latitude") double latitude,
+            @QueryParam("longitude") double longitude,
+            @QueryParam("distanceKm") double distanceKm
+    ) {
+        Logger logger = Logger.getLogger(AddressResource.class.getName());
+        long currentUserId = getCurrentUserId();
+
+        logger.info(String.format("API called: GET /my/in-range?latitude=%.6f&longitude=%.6f&distanceKm=%.2f for userId=%d",
+                latitude, longitude, distanceKm, currentUserId));
+
+        List<AddressDistanceDTO> addresses = addressService.getAddressesWithinDistanceForUser(
+                currentUserId, latitude, longitude, distanceKm);
+
+        logger.info("API response: Returning " + addresses.size() + " addresses.");
+        return Response.ok(addresses).build();
+    }
+
+    private long getCurrentUserId() {
+        UserPrincipal principal = (UserPrincipal) securityContext.getUserPrincipal();
+        return principal.getUserId();
     }
 }
 

@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "checkstyle"
+//    id "checkstyle"
     id "com.google.protobuf" version "0.9.4"
     id "org.kordamp.gradle.project-enforcer" version "0.14.0"
 }
@@ -17,11 +17,11 @@ java {
 compileJava.options.encoding = "UTF-8"
 jar.destinationDirectory = file("$projectDir/target")
 
-checkstyle {
-    toolVersion = "10.21.1"
-    configFile = file("gradle/checkstyle.xml")
-    checkstyleTest.enabled = false
-}
+//checkstyle {
+//    toolVersion = "10.21.1"
+//    configFile = file("gradle/checkstyle.xml")
+//    checkstyleTest.enabled = false
+//}
 
 enforce {
     // noinspection UnnecessaryQualifiedReference

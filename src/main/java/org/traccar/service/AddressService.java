@@ -2,9 +2,12 @@ package org.traccar.service;
 
 import jakarta.inject.Inject;
 import org.traccar.api.security.PermissionsService;
+import org.traccar.dto.AddressDistanceDTO;
 import org.traccar.model.Address;
 import org.traccar.repository.AddressRepository;
 import org.traccar.storage.StorageException;
+
+import java.util.logging.Logger;
 
 import java.util.Date;
 import java.util.List;
@@ -99,10 +102,30 @@ public class AddressService {
         if (address == null) {
             throw new IllegalArgumentException("Address not found for ID: " + addressId);
         }
-
-        // Check if the user is an admin or the owner of the address
         return permissionsService.getUser(userId).getAdministrator() || address.getUserId() == userId;
     }
+
+
+    public List<AddressDistanceDTO> getAddressesWithinDistanceForUser(
+            long userId, double latitude, double longitude, double distanceKm) {
+
+        Logger logger = Logger.getLogger(AddressService.class.getName());
+
+        if (distanceKm <= 0) {
+            throw new IllegalArgumentException("Distance must be greater than zero");
+        }
+        if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+            throw new IllegalArgumentException("Invalid latitude or longitude values");
+        }
+        logger.info(String.format("Finding addresses for userId=%d within distance=%.2f km from (%.6f, %.6f)",
+                userId, distanceKm, latitude, longitude));
+
+        List<AddressDistanceDTO> addresses = addressRepository.findWithinDistanceForUser(userId, latitude, longitude, distanceKm);
+
+        logger.info("Found " + addresses.size() + " addresses for userId=" + userId);
+        return addresses;
+    }
+
 
 }
 
