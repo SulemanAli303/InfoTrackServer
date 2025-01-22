@@ -144,7 +144,8 @@ public class AddressResource extends BaseResource {
     public Response getAddressesInRangeForCurrentUser(
             @QueryParam("latitude") double latitude,
             @QueryParam("longitude") double longitude,
-            @QueryParam("distanceKm") double distanceKm
+            @QueryParam("distanceKm") double distanceKm,
+            @QueryParam("limit") @DefaultValue("10") int limit
     ) {
         Logger logger = Logger.getLogger(AddressResource.class.getName());
         long currentUserId = getCurrentUserId();
@@ -153,7 +154,7 @@ public class AddressResource extends BaseResource {
                 latitude, longitude, distanceKm, currentUserId));
 
         List<AddressDistanceDTO> addresses = addressService.getAddressesWithinDistanceForUser(
-                currentUserId, latitude, longitude, distanceKm);
+                currentUserId, latitude, longitude, distanceKm, limit);
 
         logger.info("API response: Returning " + addresses.size() + " addresses.");
         return Response.ok(addresses).build();

@@ -212,7 +212,7 @@ public class AddressRepository {
     }
 
     public List<AddressDistanceDTO> findWithinDistanceForUser(
-            long userId, double latitude, double longitude, double distanceKm) {
+            long userId, double latitude, double longitude, double distanceKm, int limit) {
 
         Logger logger = Logger.getLogger(AddressRepository.class.getName());
         List<AddressDistanceDTO> dtos = new ArrayList<>();
@@ -235,15 +235,16 @@ public class AddressRepository {
                       * SIN(RADIANS(a.latitude))
                     )) AS distance
                 FROM addresses a
-                WHERE a.user_id = ?  -- Filter by user ID
-                HAVING distance <= ?  -- Filter by distance
-                ORDER BY distance ASC
+                WHERE a.user_id = ?  
+                HAVING distance <= ? 
+                ORDER BY distance ASC, name DESC
+                LIMIT ?;  
                 """;
 
         logger.info("Executing query to find addresses within distance...");
         logger.info("Query: " + sql);
-        logger.info(String.format("Parameters: userId=%d, latitude=%.6f, longitude=%.6f, distanceKm=%.2f",
-                userId, latitude, longitude, distanceKm));
+        logger.info(String.format("Parameters: userId=%d, latitude=%.6f, longitude=%.6f, distanceKm=%.2f, limit=%d",
+                userId, latitude, longitude, distanceKm, limit));
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -253,6 +254,7 @@ public class AddressRepository {
             statement.setDouble(3, latitude);
             statement.setLong(4, userId);
             statement.setDouble(5, distanceKm);
+            statement.setInt(6, limit);
 
             try (ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
@@ -283,7 +285,6 @@ public class AddressRepository {
         }
         return dtos;
     }
-
 
 }
 

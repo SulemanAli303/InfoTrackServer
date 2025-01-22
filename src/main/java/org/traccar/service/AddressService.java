@@ -105,9 +105,8 @@ public class AddressService {
         return permissionsService.getUser(userId).getAdministrator() || address.getUserId() == userId;
     }
 
-
     public List<AddressDistanceDTO> getAddressesWithinDistanceForUser(
-            long userId, double latitude, double longitude, double distanceKm) {
+            long userId, double latitude, double longitude, double distanceKm, int limit) {
 
         Logger logger = Logger.getLogger(AddressService.class.getName());
 
@@ -120,7 +119,8 @@ public class AddressService {
         logger.info(String.format("Finding addresses for userId=%d within distance=%.2f km from (%.6f, %.6f)",
                 userId, distanceKm, latitude, longitude));
 
-        List<AddressDistanceDTO> addresses = addressRepository.findWithinDistanceForUser(userId, latitude, longitude, distanceKm);
+        List<AddressDistanceDTO> addresses = addressRepository.findWithinDistanceForUser(
+                userId, latitude, longitude, distanceKm, limit);
 
         logger.info("Found " + addresses.size() + " addresses for userId=" + userId);
         return addresses;
