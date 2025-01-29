@@ -20,6 +20,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.mail.MessagingException;
 import org.traccar.mail.MailManager;
+import org.traccar.model.Device;
 import org.traccar.model.Event;
 import org.traccar.model.Position;
 import org.traccar.model.User;
@@ -39,7 +40,7 @@ public class NotificatorMail extends Notificator {
     }
 
     @Override
-    public void send(User user, NotificationMessage message, Event event, Position position) throws MessageException {
+    public void send(User user, NotificationMessage message, Device device , Event event, Position position) throws MessageException {
         try {
             mailManager.sendMessage(user, false, message.getSubject(), message.getBody());
         } catch (MessagingException e) {

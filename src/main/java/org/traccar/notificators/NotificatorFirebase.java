@@ -32,10 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.traccar.config.Config;
 import org.traccar.config.Keys;
-import org.traccar.model.Event;
-import org.traccar.model.ObjectOperation;
-import org.traccar.model.Position;
-import org.traccar.model.User;
+import org.traccar.model.*;
 import org.traccar.notification.MessageException;
 import org.traccar.notification.NotificationFormatter;
 import org.traccar.notification.NotificationMessage;
@@ -80,7 +77,7 @@ public class NotificatorFirebase extends Notificator {
     }
 
     @Override
-    public void send(User user, NotificationMessage message, Event event, Position position) throws MessageException {
+    public void send(User user, NotificationMessage message, Device device, Event event, Position position) throws MessageException {
         if (user.hasAttribute("notificationTokens")) {
 
             List<String> registrationTokens = new ArrayList<>(

@@ -16,11 +16,7 @@
 package org.traccar.notificators;
 
 import org.traccar.database.CommandsManager;
-import org.traccar.model.Command;
-import org.traccar.model.Event;
-import org.traccar.model.Notification;
-import org.traccar.model.Position;
-import org.traccar.model.User;
+import org.traccar.model.*;
 import org.traccar.notification.MessageException;
 import org.traccar.storage.Storage;
 import org.traccar.storage.query.Columns;
@@ -44,7 +40,7 @@ public class NotificatorCommand extends Notificator {
     }
 
     @Override
-    public void send(Notification notification, User user, Event event, Position position) throws MessageException {
+    public void send(Notification notification, User user, Device device, Event event, Position position) throws MessageException {
 
         if (notification == null || notification.getCommandId() <= 0) {
             throw new MessageException("Saved command not provided");

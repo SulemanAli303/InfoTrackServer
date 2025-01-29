@@ -136,7 +136,7 @@ public class NotificationManager {
                     }
                     for (String notificator : notification.getNotificatorsTypes()) {
                         try {
-                            notificatorManager.getNotificator(notificator).send(notification, user, event, position);
+                            notificatorManager.getNotificator(notificator).send(notification, user,device, event, position);
                         } catch (MessageException exception) {
                             LOGGER.warn("Notification failed", exception);
                         }

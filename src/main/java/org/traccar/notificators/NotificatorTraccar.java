@@ -18,12 +18,9 @@ package org.traccar.notificators;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.traccar.model.ObjectOperation;
+import org.traccar.model.*;
 import org.traccar.config.Config;
 import org.traccar.config.Keys;
-import org.traccar.model.Event;
-import org.traccar.model.Position;
-import org.traccar.model.User;
 import org.traccar.notification.NotificationFormatter;
 import org.traccar.notification.NotificationMessage;
 import org.traccar.session.cache.CacheManager;
@@ -84,7 +81,7 @@ public class NotificatorTraccar extends Notificator {
     }
 
     @Override
-    public void send(User user, NotificationMessage shortMessage, Event event, Position position) {
+    public void send(User user, NotificationMessage shortMessage, Device device , Event event, Position position) {
         if (user.hasAttribute("notificationTokens")) {
 
             NotificationObject item = new NotificationObject();

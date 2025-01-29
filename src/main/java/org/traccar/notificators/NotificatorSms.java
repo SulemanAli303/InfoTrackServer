@@ -19,6 +19,7 @@ package org.traccar.notificators;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.traccar.database.StatisticsManager;
+import org.traccar.model.Device;
 import org.traccar.model.Event;
 import org.traccar.model.Position;
 import org.traccar.model.User;
@@ -42,8 +43,11 @@ public class NotificatorSms extends Notificator {
     }
 
     @Override
-    public void send(User user, NotificationMessage message, Event event, Position position) throws MessageException {
-        if (user.getPhone() != null) {
+    public void send(User user, NotificationMessage message, Device device , Event event, Position position) throws MessageException {
+        if (device != null && device.getContact()  != null ){
+            statisticsManager.registerSms();
+            smsManager.sendMessage(device.getContact(), message.getBody(), false);
+        } else if (user.getPhone() != null) {
             statisticsManager.registerSms();
             smsManager.sendMessage(user.getPhone(), message.getBody(), false);
         }
