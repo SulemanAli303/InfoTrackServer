@@ -28,6 +28,10 @@ import org.traccar.notification.NotificationFormatter;
 import org.traccar.notification.NotificationMessage;
 import org.traccar.sms.SmsManager;
 
+import javax.swing.event.MenuEvent;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 @Singleton
 public class NotificatorSms extends Notificator {
 
@@ -46,6 +50,14 @@ public class NotificatorSms extends Notificator {
     public void send(User user, NotificationMessage message, Device device , Event event, Position position) throws MessageException {
         if (device != null && device.getContact()  != null ){
             statisticsManager.registerSms();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            String formattedDate = dateFormat.format(event.getEventTime());
+            String messageBody = "http://maps.google.com/maps?q=" + position.getLatitude() + "," + position.getLongitude() +
+                    " ID:" + device.getUniqueId() +
+                    " Latitude:" + position.getLatitude() +
+                    " Longitude:" + position.getLongitude() +
+                    " Date Time:" + formattedDate +
+                    " Speed:" + position.getSpeed();
             smsManager.sendMessage(device.getContact(), message.getBody(), false);
         } else if (user.getPhone() != null) {
             statisticsManager.registerSms();

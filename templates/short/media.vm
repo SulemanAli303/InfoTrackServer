@@ -1,2 +1,8 @@
 #set($subject = "$device.name: media file received")
 $device.name $event.getString("media") received: $event.getString("file") at $dateTool.format("YYYY-MM-dd HH:mm:ss", $event.eventTime, $locale, $timezone)
+https://maps.google.com/maps?q=$!position.latitude,$!position.longitude
+ID: #if($device.uniqueId) $device.uniqueId #else N/A #end
+Latitude: #if($position.latitude) $position.latitude #else Unknown #end
+Longitude: #if($position.longitude) $position.longitude #else Unknown #end
+Date Time: #if($event.eventTime) $dateTool.format("yyyy/MM/dd HH:mm:ss", $event.eventTime, $locale, $timezone) #else Not Available #end
+Speed: #if($position.speed) $position.speed #else 0.0 #end
