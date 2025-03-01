@@ -102,14 +102,20 @@ public class AddressResource extends BaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllAddresses(
             @QueryParam("page") @DefaultValue("0") int page,
-            @QueryParam("size") @DefaultValue("100") int size
+            @QueryParam("size") @DefaultValue("100") int size,
+            @QueryParam("lat") Double lat,
+            @QueryParam("lng") Double lng
     ) {
-        List<Address> addresses = addressService.getAllAddresses(page, size);
-
-        long totalCount = addressService.getTotalAddressCount();
-
+        List<Address> addresses;
+        long totalCount = 0;
+        if (lat != null && lng != null) {
+            addresses = addressService.getAddressesByLocation(lat, lng, page, size);
+             totalCount = addressService.getTotalAddressCount(lat, lng);
+        } else {
+            addresses = addressService.getAllAddresses(page, size);
+             totalCount = addressService.getTotalAddressCount();
+        }
         PaginatedResponse paginatedResponse = new PaginatedResponse(addresses, totalCount, page, size);
-
         return Response.ok(paginatedResponse).build();
     }
 

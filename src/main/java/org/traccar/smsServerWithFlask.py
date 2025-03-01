@@ -5,7 +5,7 @@ import sqlite3
 import base64
 import threading
 import time
-
+import datetime
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -108,9 +108,11 @@ def fetch_sms():
     if not authenticate():
         return jsonify({"isSuccess": False, "message": "Not Authorized"}), 401
 
-    deviceId = int(request.args.get("deviceId", ''))
-    fromTime = int(request.args.get("fromTime", ''))
-    toTime = int(request.args.get("toTime", ''))
+    now = int(time.time())  # Current UNIX timestamp
+    today_start = int(datetime.datetime.combine(datetime.date.today(), datetime.time.min).timestamp())
+    deviceId = request.args.get("deviceId", None)
+    dateFrom = int(request.args.get("dateFrom", today_start))
+    dateTo = int(request.args.get("dateTo", now))
     page = int(request.args.get("page", 1))
     limit = int(request.args.get("limit", 10))
     offset = (page - 1) * limit
@@ -118,15 +120,26 @@ def fetch_sms():
     conn = sqlite3.connect("messages.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT COUNT(*) FROM messages")
+    query = "SELECT COUNT(*) FROM messages WHERE timestamp BETWEEN ? AND ?"
+    params = [dateFrom, dateTo]
+
+    if deviceId:
+        query += " AND content LIKE ?"
+        params.append(f"%{deviceId}%")
+
+    cursor.execute(query, params)
     total_record = cursor.fetchone()[0]
 
-    cursor.execute("SELECT * FROM messages ORDER BY id DESC LIMIT ? OFFSET ?", (limit, offset))
+    query = "SELECT * FROM messages WHERE timestamp BETWEEN ? AND ?"
+    if deviceId:
+        query += " AND content LIKE ?"
+    query += " ORDER BY id DESC LIMIT ? OFFSET ?"
+
+    params.extend([limit, offset])
+    cursor.execute(query, params)
     messages = [{"id": row[0], "content": row[1], "subject": row[2], "status": row[3], "timestamp": row[4]}
                 for row in cursor.fetchall()]
-
     conn.close()
-
     return jsonify({
         "isSuccess": True,
         "message": "Messages fetched successfully",

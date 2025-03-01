@@ -4109,3 +4109,78 @@ ORDER BY distance ASC
 2025-01-23 00:58:54  INFO: Fetched Address: Hot Broast  Moon Market [id=57783, distance=4.9910015815632764]
 2025-01-23 00:58:54  INFO: Found 1320 addresses for userId=1
 2025-01-23 00:58:54  INFO: API response: Returning 1320 addresses.
+2025-03-01 15:43:09  INFO: Operating system name: Mac OS X version: 15.3.1 architecture: aarch64
+2025-03-01 15:43:09  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 20.0.2+9-78
+2025-03-01 15:43:09  INFO: Memory limit heap: 4096mb non-heap: 0mb
+2025-03-01 15:43:09  INFO: Character encoding: UTF-8
+2025-03-01 15:43:09  INFO: Version: 6.6
+2025-03-01 15:43:09  INFO: Starting server...
+2025-03-01 15:43:09  INFO: HikariPool-1 - Starting...
+2025-03-01 15:43:09  INFO: HikariPool-1 - Added connection conn0: url=jdbc:h2:./data/database user=SA
+2025-03-01 15:43:09  INFO: HikariPool-1 - Start completed.
+2025-03-01 15:43:09  INFO: Set default schema name to PUBLIC
+2025-03-01 15:43:09  INFO: Clearing database change log checksums
+2025-03-01 15:43:11  INFO: Successfully acquired change log lock
+2025-03-01 15:43:11  INFO: Successfully released change log lock
+2025-03-01 15:43:12  INFO: Reading from PUBLIC.DATABASECHANGELOG
+2025-03-01 15:43:12  INFO: Reading from PUBLIC.DATABASECHANGELOG
+2025-03-01 15:43:12  INFO: Reading from PUBLIC.DATABASECHANGELOG
+2025-03-01 15:43:12  INFO: UPDATE SUMMARY
+2025-03-01 15:43:12  INFO: Run:                          0
+2025-03-01 15:43:12  INFO: Previously run:              51
+2025-03-01 15:43:12  INFO: Filtered out:                 0
+2025-03-01 15:43:12  INFO: -------------------------------
+2025-03-01 15:43:12  INFO: Total change sets:           51
+
+2025-03-01 15:43:12  INFO: Update summary generated
+2025-03-01 15:43:12  INFO: Successfully released change log lock
+2025-03-01 15:43:12  INFO: Command execution complete
+2025-03-01 15:43:13  INFO: jetty-11.0.24; built: 2024-08-26T18:11:22.448Z; git: 5dfc59a691b748796f922208956bd1f2794bcd16; jvm 20.0.2+9-78
+2025-03-01 15:43:13  INFO: Started o.t.w.@8672e8f{/,null,AVAILABLE}
+2025-03-01 15:43:13  INFO: Session workerName=node0
+2025-03-01 15:43:13  INFO: Started o.e.j.s.ServletContextHandler@6f971c54{/,null,AVAILABLE}
+2025-03-01 15:43:13  INFO: Started ServerConnector@6f690a3f{HTTP/1.1, (http/1.1)}{0.0.0.0:8082}
+2025-03-01 15:43:13  INFO: Started Server@6b989c48{STARTING}[11.0.24,sto=0] @4787ms
+2025-03-01 15:43:25  INFO: [Tc7bdab7d] connected
+2025-03-01 15:43:25  INFO: [Tc7bdab7d: tek < 0:0:0:0:0:0:0:1] GET / HTTP/1.1\r\nHost: localhost:5173\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nSec-Fetch-Site: none\r\nIf-None-Match: W/"2af-8et71Vwtm4xmoUy8dI/haANmb/U"\r\nUpgrade-Insecure-Requests: 1\r\nSec-Fetch-Mode: navigate\r\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.3 Safari/605.1.15\r\nSec-Fetch-Dest: document\r\nAccept-Language: en-US,en;q=0.9\r\nPriority: u=0, i\r\nAccept-Encoding: gzip, deflate\r\nCookie: JSESSIONID=node01bmbjwjk4lle6143rlosu3o36r1926.node0; Studio-8b49cc10=aadc471e-1a68-41c2-ab17-56f321f13020; remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d=eyJpdiI6IjJKVVlMYllCVGUreXI5VUN4WmdpMUE9PSIsInZhbHVlIjoiWmhqZisvblc0S1lKQkhhRXRnQS95ZGtmN0h4dEpETEZyekNZbkd3MDdxWCszR2RTN3pyYXZLSXVQSXU4b0N5UjVZaGNnckRCdnZlV05LWjYwRm1uWUtzQy9Yb0NicHErcTUrZm1pY3hYUXFPSWh5U3lwczF5ZTJQbXBBRjIzaEFZekZvUXBkWjh3VFpZUzNhNnd6K0dPMzZWSFZxVjBoZkdITVhMa0FGR1RWblZSNWpoUHpQWlYxSkZnUUFic09ZSmF3Z1VOWGVtQ0pzbjRlZzFHcXJPbFJPR25mRDFZcEttS2RVK3JDZUYvbz0iLCJtYWMiOiI0NjkxNWI0ZWVmN2ExOTZlY2M1MzdhMzJiYzcxNTQwMmZhYjg1YzlhN2ViZWUwZTJmODc3MmE3MGU3ODMwZDk3IiwidGFnIjoiIn0%3D\r\nConnection: keep-alive\r\n\r\n
+2025-03-01 15:43:25  WARN: Unknown device - 454502f312e310d (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 02e392c2a2f2a3b (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 57067726164652d (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 83b20496e74656c (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 0352e312e31350d (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 570742d456e636f (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - b2053747564696f (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 066303134633766 (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 3316c4b516b6868 (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 0354c576a597752 (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - e684e6e64364b30 (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - 863584a5062464a (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:25  WARN: Unknown device - d6d5a68596a6731 (0:0:0:0:0:0:0:1)
+2025-03-01 15:43:31  INFO: [Tc7bdab7d] disconnected
+2025-03-01 15:54:46  INFO: login failed from: [0:0:0:0:0:0:0:1]
+2025-03-01 15:55:02  INFO: Stopping server...
+2025-03-01 15:55:05  INFO: Operating system name: Mac OS X version: 15.3.1 architecture: aarch64
+2025-03-01 15:55:05  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 20.0.2+9-78
+2025-03-01 15:55:05  INFO: Memory limit heap: 4096mb non-heap: 0mb
+2025-03-01 15:55:05  INFO: Character encoding: UTF-8
+2025-03-01 15:55:05  INFO: Version: 6.6
+2025-03-01 15:55:05  INFO: Starting server...
+2025-03-01 15:55:05  INFO: HikariPool-1 - Starting...
+2025-03-01 15:56:41  INFO: Operating system name: Mac OS X version: 15.3.1 architecture: aarch64
+2025-03-01 15:56:41  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 20.0.2+9-78
+2025-03-01 15:56:41  INFO: Memory limit heap: 4096mb non-heap: 0mb
+2025-03-01 15:56:41  INFO: Character encoding: UTF-8
+2025-03-01 15:56:41  INFO: Version: 6.6
+2025-03-01 15:56:41  INFO: Starting server...
+2025-03-01 15:56:41  INFO: HikariPool-1 - Starting...
+2025-03-01 15:58:15  WARN: HikariPool-1 - Pool is empty, failed to create/setup connection (6578dea5-f757-4616-a1c6-5457a091e613) - Connect timed out - SocketTimeoutException (... < DatabaseModule:80 < <gener:-1 < *:-1 < ... < MainModule:142 < <gener:-1 < ...)
+2025-03-01 15:58:16 ERROR: Main method error - Connect timed out - SocketTimeoutException (... < DatabaseModule:80 < <gener:-1 < *:-1 < ... < MainModule:142 < <gener:-1 < ...)
+2025-03-01 15:59:06  INFO: Operating system name: Mac OS X version: 15.3.1 architecture: aarch64
+2025-03-01 15:59:06  INFO: Java runtime name: Java HotSpot(TM) 64-Bit Server VM vendor: Oracle Corporation version: 20.0.2+9-78
+2025-03-01 15:59:06  INFO: Memory limit heap: 4096mb non-heap: 0mb
+2025-03-01 15:59:06  INFO: Character encoding: UTF-8
+2025-03-01 15:59:06  INFO: Version: 6.6
+2025-03-01 15:59:06  INFO: Starting server...
+2025-03-01 15:59:07  INFO: HikariPool-1 - Starting...
+2025-03-01 16:00:41  WARN: HikariPool-1 - Pool is empty, failed to create/setup connection (6e59e228-2b2c-4df9-91d4-bf593524b392) - Connect timed out - SocketTimeoutException (... < DatabaseModule:80 < <gener:-1 < *:-1 < ... < MainModule:142 < <gener:-1 < ...)
+2025-03-01 16:00:42 ERROR: Main method error - Connect timed out - SocketTimeoutException (... < DatabaseModule:80 < <gener:-1 < *:-1 < ... < MainModule:142 < <gener:-1 < ...)

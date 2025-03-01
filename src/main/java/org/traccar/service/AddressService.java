@@ -64,6 +64,14 @@ public class AddressService {
         return addressRepository.findAll(offset, size);
     }
 
+    public List<Address> getAddressesByLocation(Double lat,Double lng,int page, int size) {
+        int offset = page * size;
+        return addressRepository.findAllWithLatLng(lat,lng,offset, size);
+    }
+
+    public long getTotalAddressCount(Double lat,Double lng) {
+        return addressRepository.count(lat,lng);
+    }
     public long getTotalAddressCount() {
         return addressRepository.count();
     }

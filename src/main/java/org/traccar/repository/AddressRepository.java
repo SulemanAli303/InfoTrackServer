@@ -90,6 +90,79 @@ public class AddressRepository {
         return addresses;
     }
 
+    public List<Address> findAllWithLatLng(Double lat, Double lng, int offset, int limit) {
+        List<Address> addresses = new ArrayList<>();
+        String sql = "SELECT * FROM addresses";
+
+        // If lat and lng are provided, add WHERE clause
+        if (lat != null && lng != null) {
+            sql += " WHERE latitude BETWEEN (? - (100 / 111111)) AND (? + (100 / 111111))"
+                    + " AND longitude BETWEEN (? - (100 / (111111 * COS(RADIANS(?))))) AND (? + (100 / (111111 * COS(RADIANS(?)))))";
+        }
+
+        sql += " LIMIT ? OFFSET ?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            int paramIndex = 1;
+
+            // Set lat and lng if provided
+            if (lat != null && lng != null) {
+                statement.setDouble(paramIndex++, lat);
+                statement.setDouble(paramIndex++, lat); // Same lat for upper bound
+                statement.setDouble(paramIndex++, lng);
+                statement.setDouble(paramIndex++, lng); // Same lng for lower bound
+                statement.setDouble(paramIndex++, lng); // Cosine adjustment
+                statement.setDouble(paramIndex++, lng); // Cosine adjustment
+            }
+
+            // Set limit and offset
+            statement.setInt(paramIndex++, limit);
+            statement.setInt(paramIndex, offset);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    addresses.add(mapRowToAddress(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to retrieve addresses", e);
+        }
+        return addresses;
+    }
+    public long count(Double lat,Double lng) {
+        String sql = "SELECT COUNT(*) FROM addresses";
+        // If lat and lng are provided, add WHERE clause
+        if (lat != null && lng != null) {
+                sql += " WHERE latitude BETWEEN (? - (100 / 111111)) AND (? + (100 / 111111))"
+                        + " AND longitude BETWEEN (? - (100 / (111111 * COS(RADIANS(?))))) AND (? + (100 / (111111 * COS(RADIANS(?)))))";
+            }
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+         ) {
+            int paramIndex = 1;
+            // Set lat and lng if provided
+            if (lat != null && lng != null) {
+                statement.setDouble(paramIndex++, lat);
+                statement.setDouble(paramIndex++, lat); // Same lat for upper bound
+                statement.setDouble(paramIndex++, lng);
+                statement.setDouble(paramIndex++, lng); // Same lng for lower bound
+                statement.setDouble(paramIndex++, lng); // Cosine adjustment
+                statement.setDouble(paramIndex++, lng); // Cosine adjustment
+            }
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getLong(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to count addresses", e);
+        }
+        return 0;
+    }
+
     public long count() {
         String sql = "SELECT COUNT(*) FROM addresses";
         try (Connection connection = dataSource.getConnection();
