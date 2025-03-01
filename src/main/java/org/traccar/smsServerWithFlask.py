@@ -108,6 +108,9 @@ def fetch_sms():
     if not authenticate():
         return jsonify({"isSuccess": False, "message": "Not Authorized"}), 401
 
+    deviceId = int(request.args.get("deviceId", ''))
+    fromTime = int(request.args.get("fromTime", ''))
+    toTime = int(request.args.get("toTime", ''))
     page = int(request.args.get("page", 1))
     limit = int(request.args.get("limit", 10))
     offset = (page - 1) * limit
