@@ -134,6 +134,27 @@ public class AddressService {
         return addresses;
     }
 
+    public List<AddressDistanceDTO> getAddressesWithinDistance(
+            double latitude, double longitude, double distanceKm, int limit) {
+
+        Logger logger = Logger.getLogger(AddressService.class.getName());
+
+        if (distanceKm <= 0) {
+            throw new IllegalArgumentException("Distance must be greater than zero");
+        }
+        if (latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180) {
+            throw new IllegalArgumentException("Invalid latitude or longitude values");
+        }
+        logger.info(String.format("Finding ALL addresses within distance=%.2f km from (%.6f, %.6f)",
+                distanceKm, latitude, longitude));
+
+        List<AddressDistanceDTO> addresses = addressRepository.findWithinDistance(
+                latitude, longitude, distanceKm, limit);
+
+        logger.info("Found " + addresses.size() + " addresses (no user filter)");
+        return addresses;
+    }
+
 
 }
 

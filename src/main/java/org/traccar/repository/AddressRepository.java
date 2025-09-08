@@ -359,6 +359,75 @@ public class AddressRepository {
         return dtos;
     }
 
+    public List<AddressDistanceDTO> findWithinDistance(
+            double latitude, double longitude, double distanceKm, int limit) {
+
+        Logger logger = Logger.getLogger(AddressRepository.class.getName());
+        List<AddressDistanceDTO> dtos = new ArrayList<>();
+        String sql = """
+                SELECT 
+                    a.id,
+                    a.user_id,
+                    a.name,
+                    a.latitude,
+                    a.longitude,
+                    a.city,
+                    a.state,
+                    a.country,
+                    a.postal_code,
+                    (6371 * ACOS(
+                        COS(RADIANS(?)) 
+                      * COS(RADIANS(a.latitude)) 
+                      * COS(RADIANS(a.longitude) - RADIANS(?)) 
+                      + SIN(RADIANS(?)) 
+                      * SIN(RADIANS(a.latitude))
+                    )) AS distance
+                FROM addresses a
+                HAVING distance <= ? 
+                ORDER BY distance ASC, name DESC
+                LIMIT ?;  
+                """;
+
+        logger.info("Executing query to find ALL addresses within distance...");
+        logger.info("Query: " + sql);
+        logger.info(String.format("Parameters: latitude=%.6f, longitude=%.6f, distanceKm=%.2f, limit=%d",
+                latitude, longitude, distanceKm, limit));
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setDouble(1, latitude);
+            statement.setDouble(2, longitude);
+            statement.setDouble(3, latitude);
+            statement.setDouble(4, distanceKm);
+            statement.setInt(5, limit);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    AddressDistanceDTO dto = new AddressDistanceDTO();
+                    dto.setId(rs.getLong("id"));
+                    dto.setUserId(rs.getLong("user_id"));
+                    dto.setName(rs.getString("name"));
+                    dto.setLatitude(rs.getDouble("latitude"));
+                    dto.setLongitude(rs.getDouble("longitude"));
+                    dto.setCity(rs.getString("city"));
+                    dto.setState(rs.getString("state"));
+                    dto.setCountry(rs.getString("country"));
+                    dto.setPostalCode(rs.getString("postal_code"));
+                    dto.setDistanceFromQueryPoint(rs.getDouble("distance"));
+
+                    dtos.add(dto);
+                }
+
+                logger.info("Fetched " + dtos.size() + " addresses from the database (no user filter).");
+            }
+        } catch (SQLException e) {
+            logger.severe("SQL exception occurred: " + e.getMessage());
+            throw new RuntimeException("Failed to retrieve addresses within distance (no user filter)", e);
+        }
+        return dtos;
+    }
+
 }
 
 

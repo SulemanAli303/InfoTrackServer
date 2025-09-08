@@ -110,10 +110,10 @@ public class AddressResource extends BaseResource {
         long totalCount = 0;
         if (lat != null && lng != null) {
             addresses = addressService.getAddressesByLocation(lat, lng, page, size);
-             totalCount = addressService.getTotalAddressCount(lat, lng);
+            totalCount = addressService.getTotalAddressCount(lat, lng);
         } else {
             addresses = addressService.getAllAddresses(page, size);
-             totalCount = addressService.getTotalAddressCount();
+            totalCount = addressService.getTotalAddressCount();
         }
         PaginatedResponse paginatedResponse = new PaginatedResponse(addresses, totalCount, page, size);
         return Response.ok(paginatedResponse).build();
@@ -164,6 +164,27 @@ public class AddressResource extends BaseResource {
 
         logger.info("API response: Returning " + addresses.size() + " addresses.");
         return Response.ok(addresses).build();
+    }
+
+    @GET
+    @Path("/in-range")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAddressesInRange(
+        @QueryParam("latitude") double latitude,
+        @QueryParam("longitude") double longitude,
+        @QueryParam("distanceKm") double distanceKm,
+        @QueryParam("limit") @DefaultValue("10") int limit
+    ) {
+    Logger logger = Logger.getLogger(AddressResource.class.getName());
+
+    logger.info(String.format("API called: GET /addresses/in-range?latitude=%.6f&longitude=%.6f&distanceKm=%.2f&limit=%d",
+        latitude, longitude, distanceKm, limit));
+
+    List<AddressDistanceDTO> addresses = addressService.getAddressesWithinDistance(
+        latitude, longitude, distanceKm, limit);
+
+    logger.info("API response: Returning " + addresses.size() + " addresses (no user filter).");
+    return Response.ok(addresses).build();
     }
 
     private long getCurrentUserId() {
